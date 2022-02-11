@@ -1,0 +1,21 @@
+{
+    "name": "kikytokamuro/aliceframework",
+    "homepage": "https://github.com/KikyTokamuro/AliceFramework",
+    "autoload": {
+        "psr-4": {
+            "AliceFramework\\": "src/AliceFramework",
+            "AliceFramework\\Commands\\": "src/AliceFramework/Commands"
+        }
+    },
+    "authors": [
+        {
+            "name": "KikyTokamuro (Daniil Archangelsky)",
+            "email": "kiky.tokamuro@yandex.ru"
+        }
+    ],
+    "license": "MIT",
+    "version": "1.0.0",
+    "require": {
+	    "php": "^8.0.0"
+    }
+}
