@@ -3,17 +3,15 @@
 namespace AliceFramework\Commands;
 
 /**
- * Example class - Example command
+ * Example command
  */
-class Example
+class Example implements Command
 {
-    public function __construct() { }
-
     /**
-     * start - Start command
+     * Start command
      */
-    public function start()
+    public function start() : string
     {
-        return "это пример";
+        return "This is example";
     }
 }

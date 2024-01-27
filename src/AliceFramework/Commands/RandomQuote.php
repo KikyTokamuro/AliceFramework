@@ -3,10 +3,15 @@
 namespace AliceFramework\Commands;
 
 /**
- * RandomQuote class - Command for get random quote
+ * Command for get random quote
  */
-class RandomQuote
+class RandomQuote implements Command
 {
+    /**
+     * @var string API url
+     */
+    private string $url;
+
     public function __construct()
     {
         $rand = random_int(0, 999999);
@@ -14,12 +19,17 @@ class RandomQuote
     }
 
     /**
-     * start - Start command
+     * Start command
+     *
+     * @return string
      */
-    public function start()
+    public function start() : string
     {
-        $json = file_get_contents($this->url);
-        $decoded = json_decode($json, true);
-        return $decoded['quoteText'] . " - " . $decoded['quoteAuthor'];
+        $decoded = json_decode(file_get_contents($this->url), true);
+
+        if (isset($decoded['quoteText'], $decoded['quoteAuthor']))
+            return $decoded['quoteText'] . " - " . $decoded['quoteAuthor'];
+
+        return "Random quote";
     }
 }

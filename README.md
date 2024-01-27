@@ -13,7 +13,4 @@ Tiny framework for Yandex Alice
 
 ### Adding your own сommands
 1. Add new command to `src/AliceFramework/Commands/` using examples `Example.php` and `RandomQuote.php` (`start` method must be present)
-2. Add path to new command class in `src/AliceFramework/Commands/Common.php`
-
-### TODO
-- Command arguments
+2. Add path to new command class in `src/AliceFramework/Commands/CommandList.php`
