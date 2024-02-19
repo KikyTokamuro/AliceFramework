@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AliceFramework;
 
 class Request
@@ -25,14 +27,19 @@ class Request
     private string $command = "";
 
     /**
+     * @var array Request tokens
+     */
+    private array $tokens = [];
+
+    /**
      * @var string Request session_id
      */
     private string $sessionId = "";
 
     /**
-     * @var string Request message_id
+     * @var int Request message_id
      */
-    private string $messageId = "";
+    private int $messageId = 0;
 
     /**
      * @var string Request user_id
@@ -56,6 +63,7 @@ class Request
 
             // Set request params
             $this->command   = strtolower($requestData['request']['command']);
+            $this->tokens    = $requestData['request']['nlu']['tokens'];
             $this->sessionId = $requestData['session']['session_id'];
             $this->messageId = $requestData['session']['message_id'];
             $this->userId    = $requestData['session']['user_id'];
@@ -73,6 +81,8 @@ class Request
         return isset(
             $requestData['request'],
             $requestData['request']['command'],
+            $requestData['request']['nlu'],
+            $requestData['request']['nlu']['tokens'],
             $requestData['session'],
             $requestData['session']['session_id'],
             $requestData['session']['message_id'],
@@ -99,6 +109,14 @@ class Request
     }
 
     /**
+     * @return array Get request tokens
+     */
+    public function getTokens(): array
+    {
+        return $this->tokens;
+    }
+
+    /**
      * @return string Get request session_id
      */
     public function getSessionId(): string
@@ -107,9 +125,9 @@ class Request
     }
 
     /**
-     * @return string Get request message_id
+     * @return int Get request message_id
      */
-    public function getMessageId(): string
+    public function getMessageId(): int
     {
         return $this->messageId;
     }

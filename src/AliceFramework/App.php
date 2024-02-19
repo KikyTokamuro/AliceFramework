@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AliceFramework;
 
 use AliceFramework\Commands\CommandList;
@@ -42,18 +44,23 @@ class App
             $this->request->getUserId()
         );
 
-        // Command includes skill name
-        if (str_contains($this->request->getCommand(), $this->name) || empty($this->request->getCommand()))
-            return $response->success('Hello i am ' . $this->name);
+        // Get command text
+        $command = $this->request->getCommand();
 
-        // Check command
-        if (!CommandList::exists($this->request->getCommand()))
-            return $response->success('I do not understand');
+        // Command includes skill name
+        if (str_contains($command, $this->name) || empty($command))
+            return $response->success('Hello i am ' . $this->name);
 
         // Command processing
         try {
+            $executor = CommandList::exists($command);
+
+            // Check command executor
+            if (is_null($executor))
+                return $response->success('I do not understand');
+
             return $response->success(
-                (new CommandList::$commands[$this->request->getCommand()])->start()
+                (new $executor($this->request))->run()
             );
         }
         catch (\Exception $e)

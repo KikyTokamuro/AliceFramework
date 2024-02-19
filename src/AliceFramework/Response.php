@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AliceFramework;
 
 class Response
@@ -10,16 +12,16 @@ class Response
     private string $sessionId;
 
     /**
-     * @var string Request message_id
+     * @var int Request message_id
      */
-    private string $messageId;
+    private int $messageId;
 
     /**
      * @var string Request user_id
      */
     private string $userId;
 
-    public function __construct(string $sessionId, string $messageId, string $userId)
+    public function __construct(string $sessionId, int $messageId, string $userId)
     {
         $this->sessionId = $sessionId;
         $this->messageId = $messageId;
